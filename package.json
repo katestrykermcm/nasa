@@ -1,0 +1,7 @@
+{
+  "name": "node_chat",
+  "description": "A self contained node chat server",
+  "dependencies": {
+    "websocket": "*"
+  }
+}
