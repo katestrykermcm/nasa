@@ -163,15 +163,20 @@ if (!('webkitSpeechRecognition' in window)) {
         // SHUNTA WRITE CODE HERE
         // if the message string contains the word "name" then a notification appears
         var pattern = /name/;
-
+		
         //returns true or false...
         var exists = pattern.test(message);
-
         if(exists){//true statement, do whatever
-  
+  			$( function() {
+				$( "#dialog" ).dialog();
+			  });
         }
-        else{}
-          //false statement..do whatever 
+        else{//false statement..do whatever
+			
+		}
+          /*$( ".highlight" ).click(function() {
+			  alert( "Handler for .click() called." );
+			});*/ 
     };
 
     // continually updating as audio is recorded - most important

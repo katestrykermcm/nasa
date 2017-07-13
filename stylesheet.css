@@ -150,3 +150,8 @@ a:hover{
 #log_in_status{
     display: none;
 }
+
+/*Notification*/
+#dialog {
+	display:none;
+}
