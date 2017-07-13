@@ -161,8 +161,17 @@ if (!('webkitSpeechRecognition' in window)) {
         Socket.send(json_data);
 
         // SHUNTA WRITE CODE HERE
-        // if the message string contains the word "name" then 
+        // if the message string contains the word "name" then a notification appears
+        var pattern = /name/;
 
+        //returns true or false...
+        var exists = pattern.test(message);
+
+        if(exists){//true statement, do whatever
+  
+        }
+        else{
+          //false statement..do whatever 
     };
 
     // continually updating as audio is recorded - most important
