@@ -42,7 +42,7 @@ a:hover{
 #info{
     font-size: 20px;
     text-align: center;
-    color: #777;
+    color: white;
     visibility: hidden;
 }
 #results{
@@ -66,15 +66,14 @@ a:hover{
 
 /*CHAT*/
 #wrapper{
-    background-color: red;
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: #999;
-    background: #FFF;
+    background: #607d8b;
+    width: 300px;
+    color: #FFF;
     border-radius: 5px;
     padding: 40px;
     padding-bottom: 0px;
+	float:left;
+	overflow:hidden;
 }
 #page_title{
     margin-top: 0px;
@@ -107,10 +106,10 @@ a:hover{
     font-weight: bold;
     font-size: 25px;
     color: #BBB;
-    background-color: orange;
+    background-color: #fff;
 }
 #chat{  
-    margin-top: 200px;
+    /*margin-top: 200px;*/
 }
 .page_text{
     font-size: 20px;
@@ -130,7 +129,7 @@ a:hover{
     text-align: left;
     font-family: Rockwell;
     font-size: 20px;
-    color: #999;
+    color: #fff;
 }
 #messages{
     display: none;

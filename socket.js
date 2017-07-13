@@ -170,7 +170,7 @@ if (!('webkitSpeechRecognition' in window)) {
         if(exists){//true statement, do whatever
   
         }
-        else{
+        else{}
           //false statement..do whatever 
     };
 
