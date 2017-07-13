@@ -50,6 +50,42 @@ var server = http.createServer(function(request, response) {
             response.end();
         });
     }
+    else if (URL === BASE_URI + '/d3/d3.js'){
+        fs.readFile('d3/d3.js', 'utf8', function(err, data){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log('testing!!');
+            //console.log(URL + " served at " + new Date());
+            response.write(data);
+            response.end();
+        });
+    }
+    else if (URL === BASE_URI + '/readme.json'){
+        fs.readFile('readme.json', 'utf8', function(err, data){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log('testing!!');
+            //console.log(URL + " served at " + new Date());
+            response.write(data);
+            response.end();
+        });
+    }
+    else if (URL === BASE_URI + '/dataviz.js'){
+        fs.readFile('dataviz.js', 'utf8', function(err, data){
+            if(err){
+                console.log(err);
+                return;
+            }
+            console.log('testing!!');
+            //console.log(URL + " served at " + new Date());
+            response.write(data);
+            response.end();
+        });
+    }
     else if (URL === BASE_URI + '/favicon.ico'){
         fs.readFile('favicon.ico', 'binary', function(err, data){
             if(err){

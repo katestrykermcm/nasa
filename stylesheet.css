@@ -4,6 +4,10 @@
         & Web Speech API Demonstration: https://www.google.com/intl/en/chrome/demos/speech.html
 */
 
+rect {
+    stroke: white;
+}
+
 #final_span{
     width: 200px;
     height: 200px;
