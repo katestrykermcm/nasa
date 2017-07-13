@@ -38,18 +38,6 @@ var server = http.createServer(function(request, response) {
             response.end();
         });
     }
-    else if (URL === BASE_URI + '/transcription.js'){
-        fs.readFile('transcription.js', 'utf8', function(err, data){
-            if(err){
-                console.log(err);
-                return;
-            }
-            console.log('testing!!');
-            //console.log(URL + " served at " + new Date());
-            response.write(data);
-            response.end();
-        });
-    }
     else if (URL === BASE_URI + '/socket.js'){
         fs.readFile('socket.js', 'utf8', function(err, data){
             if(err){
