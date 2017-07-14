@@ -64,7 +64,8 @@ a:hover{
     padding: 0;
 }
 .highlight{
-    background-color: yellow;
+    background-color: #F78D1E;
+	border-radius:3px;
 }
 
 
@@ -171,7 +172,8 @@ a:hover{
     background-color: #fefefe;
     
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #F78D1E;
+	border-radius: 3px;
     width: 40%; /* Could be more or less, depending on screen size */
 	color:#000;
 }

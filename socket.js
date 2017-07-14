@@ -68,11 +68,6 @@ $('#chat_input').keypress(function(e){
 	}
 });
 
-$(".highlight").click(function() {
-    console.log('hihihih!!!!!');
-    alert('hi');
-});
-
 
 
 // transcription stuff
@@ -160,7 +155,6 @@ if (!('webkitSpeechRecognition' in window)) {
         console.log(json_data);
         Socket.send(json_data);
 
-        // SHUNTA WRITE CODE HERE
         // if the message string contains the word "name" then a notification appears
         var pattern = /name/;
 		
@@ -186,11 +180,7 @@ if (!('webkitSpeechRecognition' in window)) {
 			}
         }
         else{//false statement..do whatever
-			
-		}
-          /*$( ".highlight" ).click(function() {
-			  alert( "Handler for .click() called." );
-			});*/ 
+		} 
     };
 
     // continually updating as audio is recorded - most important
