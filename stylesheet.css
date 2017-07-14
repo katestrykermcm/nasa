@@ -32,26 +32,26 @@ body{
 }
 
 
+/*RIGHT CONTENT BOX*/
 
-/* DATA VIZ */
-
-rect {
-    stroke: white;
-}
-#dataviz{
-    background-color: white;
-    float: right;
-    width: 600px;
+main {
+	float: right;
+	background-color: white;
+	width: 65%;
 }
 
+	/* DATA VIZ */
 
+	rect {
+		stroke: white;
+	}
+	#dataviz{
+	}
 
-
-
-#final_span{
-    width: 200px;
-    height: 200px;
-}
+	#final_span{
+		width: 200px;
+		height: 200px;
+	}
 
 /*TRANSCRIPTION GOOGLE*/
 
@@ -113,11 +113,10 @@ a:hover{
 /*CHAT*/
 #chatbox{
     background: #607d8b;
-    width: 300px;
+    width: 23%;
     color: #FFF;
     border-radius: 5px;
     padding: 40px;
-    padding-bottom: 0px;
 	float:left;
 	overflow:hidden;
 }
@@ -186,8 +185,7 @@ a:hover{
     display: none;
 }
 
-/*Notification*/
-/* The Modal (background) */
+/*NOTIFICATION*/
 .notification {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -197,28 +195,27 @@ a:hover{
     width: 100%; /* Full width */
 }
 
-/* Modal Content/Box */
-.noti-content {
-    background-color: #fefefe;
-    
-    padding: 20px;
-    border: 1px solid #F78D1E;
-	border-radius: 3px;
-    width: 40%; /* Could be more or less, depending on screen size */
-	color:#000;
-}
+	/*Content/Box */
+	.noti-content {
+		background-color: #fefefe;
+		padding: 20px;
+		border: 5px solid #F78D1E;
+		border-radius: 3px;
+		width: 40%; /* Could be more or less, depending on screen size */
+		color:#000;
+	}
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+	/* The Close Button */
+	.close {
+		color: #aaa;
+		float: right;
+		font-size: 28px;
+		font-weight: bold;
+	}
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+	.close:hover,
+	.close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}

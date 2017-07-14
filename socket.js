@@ -158,7 +158,7 @@ if (!('webkitSpeechRecognition' in window)) {
         Socket.send(json_data);
 
         // if the message string contains the word "name" then a notification appears
-        var pattern = /name/;
+        var pattern = /LCC.*332/;
 		
         //returns true or false...
         var exists = pattern.test(message);
@@ -166,23 +166,23 @@ if (!('webkitSpeechRecognition' in window)) {
  			// Get the notification
 			var notification = document.getElementById('myNotification');
 			notification.style.display = "block";
-			// Get the <span> element that closes the modal
+			// Get the <span> element that closes the notification
 			var span = document.getElementsByClassName("close")[0];
 
-			// When the user clicks on <span> (x), close the modal
+			// When the user clicks on <span> (x), close the notification
 			span.onclick = function() {
 				notification.style.display = "none";
 			}
 
 			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
+			/*window.onclick = function(event) {
 				if (event.target == notification) {
 					notification.style.display = "none";
 				}
-			}
+			}*/
         }
-       	//make buttons clickable - NEVER GOT THIS TO WORK
-		$(".highlight").click(function() {
+		//make buttons clickable -NOT QUITE WORKING
+		$(this).click(function() {
 			console.log('hihihih!!!!!');
 			alert('hi');
 		});
@@ -200,11 +200,16 @@ if (!('webkitSpeechRecognition' in window)) {
             else {
                 interim_transcript += event.results[i][0].transcript;
             }
-            if (final_transcript.indexOf("name") !== -1){
-                final_transcript = final_transcript.replace(/name/g, '<button class="highlight">name</button>');
-            }
-        }
-        final_transcript = capitalize(final_transcript);
+			//code for changing keywords into buttons
+            if (final_transcript.indexOf("LCC 332") !== -1){
+                final_transcript = final_transcript.replace(/LCC.*332/, '<button class="highlight">LCC 332</button>');
+            }else if (final_transcript.indexOf("LCC 186") !== -1){
+                final_transcript = final_transcript.replace(/LCC.*186/, '<button class="highlight">LCC 186</button>');
+            }else if (final_transcript.indexOf("LCC 401") !== -1){
+                final_transcript = final_transcript.replace(/LCC.*401/, '<button class="highlight">LCC 401</button>');
+        	}
+		}
+		final_transcript = capitalize(final_transcript);
         final_span.innerHTML = linebreak(final_transcript);
         interim_span.innerHTML = linebreak(interim_transcript);
     };
