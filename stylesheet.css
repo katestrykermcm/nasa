@@ -46,6 +46,7 @@ main {
 		stroke: white;
 	}
 	#dataviz{
+		display:none;
 	}
 
 	#final_span{
