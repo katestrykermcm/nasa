@@ -70,7 +70,7 @@ a:hover{
 
 
 /*CHAT*/
-#wrapper{
+#chatbox{
     background: #607d8b;
     width: 300px;
     color: #FFF;
@@ -158,7 +158,7 @@ a:hover{
 
 /*Notification*/
 /* The Modal (background) */
-.modal {
+.notification {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -168,7 +168,7 @@ a:hover{
 }
 
 /* Modal Content/Box */
-.modal-content {
+.noti-content {
     background-color: #fefefe;
     
     padding: 20px;
