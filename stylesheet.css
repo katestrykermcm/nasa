@@ -4,6 +4,34 @@
         & Web Speech API Demonstration: https://www.google.com/intl/en/chrome/demos/speech.html
 */
 
+
+
+/* ALL */
+
+body{
+    background-color: #282F30;
+}
+
+
+
+/* LOGIN PAGE */
+
+#login{
+    margin-top: 50px;
+    text-align: center;
+}
+#login input{
+    font-family: Rockwell;
+    font-weight: bold;
+    font-size: 25px;
+    color: #BBB;
+    background-color: #fff;
+}
+
+
+
+
+
 rect {
     stroke: white;
 }
@@ -101,17 +129,6 @@ a:hover{
 }
 #page_slogan a:hover{
     color: #999;
-}
-#user{
-    margin-top: 50px;
-    text-align: center;
-}
-#user input{
-    font-family: Rockwell;
-    font-weight: bold;
-    font-size: 25px;
-    color: #BBB;
-    background-color: #fff;
 }
 #chat{  
     /*margin-top: 200px;*/

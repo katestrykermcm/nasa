@@ -8,18 +8,18 @@
 // socket stuff
 
 if(!WebSocket){
-	$('#user').add('p').addClass('page_text').text('Your browser does not support WebSocket, you cannot chat!');
+	$('#login').add('p').addClass('page_text').text('Your browser does not support WebSocket, you cannot chat!');
 }
 var Socket;
 var username;
 
-$('#user input').keypress(function(e){
+$('#login input').keypress(function(e){
 	var code = (e.keyCode ? e.keyCode : e.which);
 	if(code == 13){
 		// Get username from user text input
-		var val = $("#user input").val();
+		var val = $("#login input").val();
 		username = val;
-		$('#user').remove();
+		$('#login').remove();
 
 		// Configure the chat URL
 		chat_url = window.location.href;
