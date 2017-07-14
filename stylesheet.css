@@ -6,33 +6,141 @@
 
 
 
+
 /* ALL */
 
-body{
-    background-color: #282F30;
+body {
+    background-color: #1B2121;
+    font-family: Lato, Verdana, Arial, sans-serif;
+    color: white;
 }
-.hidden{
+.hidden {
     display: none;
 }
+img {
+    outline: none;
+    cursor: pointer;
+    clear: both;
+    display: block;
+}
+
+
+
+
+/* TEXT */
+
+.instructions {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+}
+.instructionsBig {
+    font-size: 30px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+.miniText{
+    text-align: left;
+    font-size: 12px;
+}
+.labels{
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 
 
 
 /* LOGIN PAGE */
 
-#login{
-    margin-top: 50px;
+#login {
+    margin-top: 250px;
     text-align: center;
+    color: white;
+    text-align: left;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
-#login input{
-    font-family: Rockwell;
-    font-weight: bold;
+#login input {
     font-size: 25px;
-    color: #BBB;
+    font-weight: bold;
+    color: #3F4142;
     background-color: #fff;
+    margin-top: 20px;
+    padding: 5px;
+}
+#loginStatus {
+    display: none;
+    position:absolute;
+    bottom: 10px;
+    left: 20px;
 }
 
 
-/*RIGHT CONTENT BOX*/
+
+
+/* LEFT: TRANSCRIPTION */
+
+#transcriptionContainer {
+    background: #282D2D;
+    width: 300px;
+    color: #FFF;
+    border-radius: 5px;
+    padding: 20px;
+    float:left;
+    overflow-y: scroll;
+    height: 600px;
+}
+#transcription {  
+    width: 100%;
+}
+.transcriptionName{
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.transcriptionMessage{
+    font-size: 16px;
+}
+.transribedText {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #383D3D;
+    font-size: 20px;
+    padding: 6px;
+    border-radius: 3px;
+    color: #fff;
+    width: 200px;
+}
+#messages {
+    /*display: none;*/
+    text-align: right;
+}
+.microphoneImages{
+    margin-left: 125px;
+}
+
+.mainUserText{
+    margin-left: 80px;
+    text-align: right;
+}
+.mainUserName{
+    color: #2FA2A8;
+}
+.allUserText{
+    margin-left: 0px;
+    text-align: left;
+}
+.allUserNames{
+    color: red;
+}
+
+
+
+/*Lead Integration Engineer*/
+/* RIGHT: CONTENT */
 
 main {
 	float: right;
@@ -40,25 +148,67 @@ main {
 	width: 65%;
 }
 
-	/* DATA VIZ */
 
-	rect {
-		stroke: white;
-	}
-	#dataviz{
-		display:none;
-	}
 
-	#final_span{
-		width: 200px;
-		height: 200px;
-	}
+
+/* DATA VIZ */
+
+rect {
+	stroke: white;
+}
+#dataviz {
+	display:none;
+}
+
+
+
+
+/* NOTIFICATION */
+
+.notification {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 56%;
+    top: 0;
+    width: 100%; /* Full width */
+}
+.notificationContent {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 5px solid #F78D1E;
+    border-radius: 3px;
+    width: 40%; /* Could be more or less, depending on screen size */
+    color:#000;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+#final_span {
+	width: 200px;
+	height: 200px;
+    background-color: red;
+}
+
+
+
 
 /*TRANSCRIPTION GOOGLE*/
 
-*{
-    font-family: Verdana, Arial, sans-serif;
-}
 a:link{
     color:#000;
     text-decoration: none;
@@ -81,9 +231,6 @@ a:hover{
     text-align: center;
     color: purple;
     display: none;
-}
-.right{
-    float: right;
 }
 #info{
     font-size: 20px;
@@ -112,24 +259,14 @@ a:hover{
 
 
 /*CHAT*/
-#chatbox{
-    background: #607d8b;
-    width: 23%;
-    color: #FFF;
-    border-radius: 5px;
-    padding: 40px;
-	float:left;
-	overflow:hidden;
-}
+
 #page_title{
     margin-top: 0px;
     margin-bottom: 0px;
-    font-family: Rockwell;
     font-size: 45px;
     background-color: yellow;
 }
 #page_slogan{
-    font-family: Rockwell;
     font-size: 20px;
 }
 #page_slogan a{
@@ -143,32 +280,6 @@ a:hover{
 #page_slogan a:hover{
     color: #999;
 }
-#chat{  
-    /*margin-top: 200px;*/
-}
-.page_text{
-    font-size: 20px;
-    font-family: Rockwell;
-    text-align: center;
-}
-#chat_input{
-    display: none;
-    font-family: Rockwell;
-    font-weight: bold;
-    font-size: 20px;
-    width: 800px;
-    background-color: pink;
-    color: #BBB;
-}
-.chat_text{
-    text-align: left;
-    font-family: Rockwell;
-    font-size: 20px;
-    color: #fff;
-}
-#messages{
-    display: none;
-}
 #header{
     z-index: 10;
     position: fixed;
@@ -177,46 +288,6 @@ a:hover{
     background: rgba(255,255,255,0.8);
     width: 760px;
 }
-.mini_text{
-    text-align: left;
-    font-size: 14px;
-    font-family: Rockwell;
-}
-#log_in_status{
-    display: none;
-}
 
-/*NOTIFICATION*/
-.notification {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 56%;
-    top: 0;
-    width: 100%; /* Full width */
-}
 
-	/*Content/Box */
-	.noti-content {
-		background-color: #fefefe;
-		padding: 20px;
-		border: 5px solid #F78D1E;
-		border-radius: 3px;
-		width: 40%; /* Could be more or less, depending on screen size */
-		color:#000;
-	}
 
-	/* The Close Button */
-	.close {
-		color: #aaa;
-		float: right;
-		font-size: 28px;
-		font-weight: bold;
-	}
-
-	.close:hover,
-	.close:focus {
-		color: black;
-		text-decoration: none;
-		cursor: pointer;
-	}

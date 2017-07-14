@@ -44,7 +44,6 @@ var server = http.createServer(function(request, response) {
                 console.log(err);
                 return;
             }
-            console.log('testing!!');
             //console.log(URL + " served at " + new Date());
             response.write(data);
             response.end();
@@ -56,7 +55,6 @@ var server = http.createServer(function(request, response) {
                 console.log(err);
                 return;
             }
-            console.log('testing!!');
             //console.log(URL + " served at " + new Date());
             response.write(data);
             response.end();
@@ -68,7 +66,6 @@ var server = http.createServer(function(request, response) {
                 console.log(err);
                 return;
             }
-            console.log('testing!!');
             //console.log(URL + " served at " + new Date());
             response.write(data);
             response.end();
@@ -80,11 +77,26 @@ var server = http.createServer(function(request, response) {
                 console.log(err);
                 return;
             }
-            console.log('testing!!');
             //console.log(URL + " served at " + new Date());
             response.write(data);
             response.end();
         });
+    }
+    // 3 microphone images
+    else if (URL === BASE_URI + '/mic.gif'){
+        var img = fs.readFileSync('./mic.gif');
+        response.writeHead(200, {'Content-Type': 'image/gif' });
+        response.end(img, 'binary');
+    }
+    else if (URL === BASE_URI + '/mic-animate.gif'){
+        var img = fs.readFileSync('./mic-animate.gif');
+        response.writeHead(200, {'Content-Type': 'image/gif' });
+        response.end(img, 'binary');
+    }
+    else if (URL === BASE_URI + '/mic-slash.gif'){
+        var img = fs.readFileSync('./mic-slash.gif');
+        response.writeHead(200, {'Content-Type': 'image/gif' });
+        response.end(img, 'binary');
     }
     else if (URL === BASE_URI + '/favicon.ico'){
         fs.readFile('favicon.ico', 'binary', function(err, data){

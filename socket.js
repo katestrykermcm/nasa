@@ -13,6 +13,8 @@ if(!WebSocket){
 var Socket;
 var username;
 
+$('#login input').focus();
+
 $('#login input').keypress(function(e){
 	var code = (e.keyCode ? e.keyCode : e.which);
 	if(code == 13){
@@ -33,11 +35,8 @@ $('#login input').keypress(function(e){
 		
 		// Static text: appears at start of chat and stays on the screen
 		Socket.addEventListener('open', function(event){
-			// $('#chat_input').show();
 			$('#messages').show();
-			$('#messages').append('<p class = "chat_text">Press the microphone whenever you would like to communicate to the team.</p>')
-			// $('#chat_input').focus();
-			$('#log_in_status').text("You are logged in as " + username).show();
+			$('#loginStatus').text("You are logged in as " + username).show();
 		});
 		
 		// Dynamic chat text
@@ -45,7 +44,20 @@ $('#login input').keypress(function(e){
 				var object = eval('('+event.data+')');
 				var sender = object['sender'];
 				var message = object['message'];
-				var appendable = '<p class = "chat_text">' + sender + ' -- ' + message + '</p>';
+                // it is the main user, LPE (Simon)
+                if (sender === 'Lead Integration Engineer'){
+                    var appendable = '<div class="mainUserText transribedText">' + 
+                        '<span class="mainUserName transcriptionName">' + sender + '<br></span>' + 
+                        '<span class="transcriptionMessage">' + message + '</span>' + 
+                    '</div>';
+                }
+                // it is another user
+                else{
+                    var appendable = '<div class="allUserText transribedText">' + 
+                        '<span class="allUserNames transcriptionName">' + sender + '<br></span>' + 
+                        '<span class="transcriptionMessage">' + message + '</span>' + 
+                    '</div>';
+                }
 				$('#messages').append(appendable);
 				window.scrollBy(0,200);
 		});
@@ -54,20 +66,6 @@ $('#login input').keypress(function(e){
 			return;
 		});
 	}					
-});
-
-// Whenever a key is pressed while user inside input entry box
-$('#chat_input').keypress(function(e){
-	var code = (e.keyCode ? e.keyCode : e.which);
-    // If user returns (sends message)
-	if (code == 13){
-		message = $('#chat_input').val();
-		sender = username;
-		$('#chat_input').val('')
-		json_data = JSON.stringify({'message':message, 'sender':sender});
-        console.log(json_data);
-		Socket.send(json_data);
-	}
 });
 
 
@@ -152,7 +150,6 @@ if (!('webkitSpeechRecognition' in window)) {
         // Sends transcription to post in chat
         message = final_transcript;
         sender = username;
-        $('#chat_input').val('');
         json_data = JSON.stringify({'message':message, 'sender':sender});
         console.log(json_data);
         Socket.send(json_data);
@@ -181,11 +178,12 @@ if (!('webkitSpeechRecognition' in window)) {
 				}
 			}*/
         }
-		//make buttons clickable -NOT QUITE WORKING
-		$(this).click(function() {
-			console.log('hihihih!!!!!');
-			alert('hi');
-		});
+
+        // scroll to bottom after adding new transcription text
+        $('#transcriptionContainer').stop().animate({
+            scrollTop: $('#transcriptionContainer')[0].scrollHeight
+        }, 800);
+
     };
 
     // continually updating as audio is recorded - most important
