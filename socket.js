@@ -161,26 +161,29 @@ if (!('webkitSpeechRecognition' in window)) {
         //returns true or false...
         var exists = pattern.test(message);
         if(exists){//true statement, do whatever
- 			// Get the modal
-			var modal = document.getElementById('myModal');
-			modal.style.display = "block";
+ 			// Get the notification
+			var notification = document.getElementById('myNotification');
+			notification.style.display = "block";
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
 
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
-				modal.style.display = "none";
+				notification.style.display = "none";
 			}
 
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
+				if (event.target == notification) {
+					notification.style.display = "none";
 				}
 			}
         }
-        else{//false statement..do whatever
-		} 
+       	//make buttons clickable
+		$(".highlight").click(function() {
+			console.log('hihihih!!!!!');
+			alert('hi');
+		});
     };
 
     // continually updating as audio is recorded - most important
