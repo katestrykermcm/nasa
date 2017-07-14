@@ -2,10 +2,8 @@
     Initial code copied from:
         tophtucker's Zoomable Icicle (d3 v4) project: https://bl.ocks.org/tophtucker/a35c0f4f32400755a6a9b976be834ab3
 */
-
-console.log('test');
-var width = 960,
-    height = 500;
+var width = 400,
+    height = 400;
 
 var x = d3.scaleLinear()
     .range([0, width]);
@@ -20,7 +18,7 @@ var partition = d3.partition()
     .padding(0)
     .round(true);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#dataviz").append("svg")
     .attr("width", width)
     .attr("height", height);
 

@@ -11,6 +11,9 @@
 body{
     background-color: #282F30;
 }
+.hidden{
+    display: none;
+}
 
 
 
@@ -30,11 +33,20 @@ body{
 
 
 
-
+/* DATA VIZ */
 
 rect {
     stroke: white;
 }
+#dataviz{
+    background-color: white;
+    float: right;
+    width: 600px;
+}
+
+
+
+
 
 #final_span{
     width: 200px;
@@ -42,6 +54,7 @@ rect {
 }
 
 /*TRANSCRIPTION GOOGLE*/
+
 *{
     font-family: Verdana, Arial, sans-serif;
 }

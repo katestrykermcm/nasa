@@ -20,6 +20,8 @@ $('#login input').keypress(function(e){
 		var val = $("#login input").val();
 		username = val;
 		$('#login').remove();
+        // Hide this login information and reveal dashboard
+        $(".dashboard").removeClass('hidden');
 
 		// Configure the chat URL
 		chat_url = window.location.href;
@@ -179,7 +181,7 @@ if (!('webkitSpeechRecognition' in window)) {
 				}
 			}
         }
-       	//make buttons clickable
+       	//make buttons clickable - NEVER GOT THIS TO WORK
 		$(".highlight").click(function() {
 			console.log('hihihih!!!!!');
 			alert('hi');
