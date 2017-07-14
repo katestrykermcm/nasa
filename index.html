@@ -15,8 +15,7 @@
     	<meta property="fb:admins" content="rivalslayer"/>
     	<meta property="og:description" content="A self contained chat server running on node, based on WebSocket."/>
 		<script src="jquery.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		
 		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600" rel="stylesheet">
 	</head>
@@ -49,6 +48,17 @@
 				<p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a>version 25 or later.</p>
 			</div>
 
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modal-content">
+				<span class="close">&times;</span>
+				<h1>LCC 186</h1>
+			  </div>
+
+			</div>
+			
 			<div class="right">
 				<button id="start_button" onclick="startButton(event)">
 					<img id="start_img" src="mic.gif" alt="Start">
@@ -61,9 +71,6 @@
 			</div>
 		</div>
 		
-		<div id="dialog" title="Basic dialog">
-  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
         <!-- Script for chat socket -->
         <script type="text/javascript" src="socket.js"></script> 
 
