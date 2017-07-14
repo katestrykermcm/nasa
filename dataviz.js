@@ -1,3 +1,8 @@
+/*
+    Initial code copied from:
+        tophtucker's Zoomable Icicle (d3 v4) project: https://bl.ocks.org/tophtucker/a35c0f4f32400755a6a9b976be834ab3
+*/
+
 console.log('test');
 var width = 960,
     height = 500;
