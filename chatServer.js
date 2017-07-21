@@ -188,6 +188,8 @@ wsServer.on('request', function(request) {
     connection.on('close', function(reasonCode, description) {
         clients.splice(client_index, 1);
         leaving_user = users.splice(client_index, 1)[0]
+
+        
         var message = leaving_user + ' has ended OIS communication.';
         var sender = 'Server';
         json_data = JSON.stringify({'message': message, 'sender': sender});

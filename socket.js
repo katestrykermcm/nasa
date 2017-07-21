@@ -35,30 +35,56 @@ $('#login input').keypress(function(e){
 		
 		// Static text: appears at start of chat and stays on the screen
 		Socket.addEventListener('open', function(event){
-			$('#messages').show();
+			$('#conversation').show();
 			$('#loginStatus').text("You are logged in as " + username).show();
 		});
-		
+
 		// Dynamic chat text
 		Socket.addEventListener('message', function(event){
 				var object = eval('('+event.data+')');
 				var sender = object['sender'];
 				var message = object['message'];
+
+                // make time
+                var now = new Date();
+                var hours = now.getHours();
+                if (hours.toString().length == 1) {
+                    hours = "0" + hours;
+                }
+                var minutes = now.getMinutes();
+                if (minutes.toString().length == 1) {
+                    minutes = "0" + minutes;
+                }
+                var time = hours.toString() + minutes.toString();
+
+                // make fake L-time
+                var lMinutes = 60 - minutes;
+                if (lMinutes.toString().length == 1) {
+                    lMinutes = "0" + lMinutes;
+                }
+                var lSeconds = 60 - now.getSeconds();
+                if (lSeconds.toString().length == 1) {
+                    lSeconds = "0" + lSeconds;
+                }
+                var lTime = "04:" + lMinutes + ":" + lSeconds;
+
                 // it is the main user, LPE (Simon)
                 if (sender === 'Lead Integration Engineer'){
-                    var appendable = '<div class="mainUserText transribedText">' + 
-                        '<span class="mainUserName transcriptionName">' + sender + '<br></span>' + 
-                        '<span class="transcriptionMessage">' + message + '</span>' + 
+                    var appendable = '<div class="mainUserText transcriptionBox">' + 
+                        '<span class="mainUserName transcriptionName">' + sender + '</span>' + 
+                        '<span class="transcriptionTime">' + time + ' <span class="noItalic">&nbsp&nbsp | &nbsp&nbsp </span> L - ' + lTime + '</span><br>' + 
+                        '<div class="transcriptionMessage">' + message + '</div>' + 
                     '</div>';
                 }
                 // it is another user
                 else{
-                    var appendable = '<div class="allUserText transribedText">' + 
-                        '<span class="allUserNames transcriptionName">' + sender + '<br></span>' + 
-                        '<span class="transcriptionMessage">' + message + '</span>' + 
+                    var appendable = '<div class="regularUserText transcriptionBox">' + 
+                        '<span class="regularUserNames transcriptionName">' + sender + '</span>' + 
+                        '<span class="transcriptionTime">' + time + ' <span class="noItalic">&nbsp&nbsp | &nbsp&nbsp </span> L - ' + lTime + '</span><br>' + 
+                        '<div class="transcriptionMessage">' + message + '</div>' + 
                     '</div>';
                 }
-				$('#messages').append(appendable);
+				$('#conversation').append(appendable);
 				window.scrollBy(0,200);
 		});
 		
@@ -67,6 +93,7 @@ $('#login input').keypress(function(e){
 		});
 	}					
 });
+
 
 
 
@@ -161,10 +188,10 @@ if (!('webkitSpeechRecognition' in window)) {
         var exists = pattern.test(message);
         if(exists){//true statement, do whatever
  			// Get the notification
-			var notification = document.getElementById('myNotification');
+			var notification = document.getElementById('notification');
 			notification.style.display = "block";
 			// Get the <span> element that closes the notification
-			var span = document.getElementsByClassName("close")[0];
+			var span = document.getElementsByClassName("closeNotif")[0];
 
 			// When the user clicks on <span> (x), close the notification
 			span.onclick = function() {
@@ -198,14 +225,27 @@ if (!('webkitSpeechRecognition' in window)) {
             else {
                 interim_transcript += event.results[i][0].transcript;
             }
-			//code for changing keywords into buttons
+			//code for changing keywords into buttons  LC c3322 
             if (final_transcript.indexOf("LCC 332") !== -1){
-                final_transcript = final_transcript.replace(/LCC.*332/, '<button class="highlight">LCC 332</button>');
-            }else if (final_transcript.indexOf("LCC 186") !== -1){
+                final_transcript = final_transcript.replace(/LCC.*332/, '<button class="highlight">LCC-332</button>');
+            }
+            else if (final_transcript.indexOf("LC c3322") !== -1){
+                final_transcript = final_transcript.replace(/LC.*c3322/, '<button class="highlight">LCC-332</button>');
+            }
+            else if (final_transcript.indexOf("LC c332") !== -1){
+                final_transcript = final_transcript.replace(/LC.*c332/, '<button class="highlight">LCC-332</button>');
+            }
+            else if (final_transcript.indexOf("LC c33") !== -1){
+                final_transcript = final_transcript.replace(/LC.*c33/, '<button class="highlight">LCC-332</button>');
+            }
+
+            else if (final_transcript.indexOf("LCC 186") !== -1){
                 final_transcript = final_transcript.replace(/LCC.*186/, '<button class="highlight">LCC 186</button>');
-            }else if (final_transcript.indexOf("LCC 401") !== -1){
+            }
+            else if (final_transcript.indexOf("LCC 401") !== -1){
                 final_transcript = final_transcript.replace(/LCC.*401/, '<button class="highlight">LCC 401</button>');
         	}
+
 		}
 		final_transcript = capitalize(final_transcript);
         final_span.innerHTML = linebreak(final_transcript);
@@ -245,6 +285,10 @@ function startButton(event) {
     showDirections('info_allow');
     start_timestamp = event.timeStamp;
 }
+
+$('#conversation').on( 'click', '.highlight', function () {
+    $("main").removeClass("hidden");
+});
 
 // at start and throughout?
 function showDirections(s) {

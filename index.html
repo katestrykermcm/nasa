@@ -17,15 +17,15 @@
 		<script src="jquery.js"></script>
 		
 		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-		<link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
 	</head>
 	<body>
 
 		<!-- INITIAL SCREEN: USER ENTERS NAME TO LOGIN -->
 
 		<div id="login">
-			<div class="instructions">To communicate<br>with your team over OIS,</div>
-			<div class="instructions instructionsBig">enter your name:</div>
+			<div class="instructions"><h3>To communicate<br>with your team over OIS,</h3></div>
+			<div class="instructions"><h1>enter your name:</h1></div>
 			<input/>
 		</div>
 
@@ -38,8 +38,8 @@
 
 			<!-- Transcription content -->
 			<div id="transcription">
-				<p class="labels">OIS Transcription</p>
-				<div id="messages"></div>
+				<h2>COMMAND NET</h2>
+				<div id="conversation"></div>
 			</div>
 		
 			<!-- Microphone instructions -->
@@ -74,19 +74,37 @@
 			</div>
 		</div>
 
-		<p class="miniText" id="loginStatus"></p>
+		<p class="notes" id="loginStatus"></p>
 
 
 
 
 		<!-- NOTIFICATION -->
 
-		<div id="myNotification" class="notification">
-		  <div class="notificationContent">
-			<span class="close">&times;</span>
+		<div class="notifications anomalyNotif">
+			<div class="anomalyIcons closeNotif">&times;</div>
+			<div class="anomalyIcons iconNotif"><h1>!</h1></div>
+			<div class="textContainerNotif">
+				<h3>Valve Temperature Anomaly</h3>
+				<h4><button class="anomalyButton">LCC-332</button> &nbsp on &nbsp <button class="anomalyButton">Loop 2</button></h4>
+				<p><span>Severity:</span>Contained</p>
+				<p><span>Element:</span>Main Engine</p>
+				<p><span>Subsystem:</span>Turbopump</p>
+				<p><span>Initiating Team:</span>Propulsion Engineering</p>
+			</div>
+		</div>
 
-			<p>LCC #332, <strong>RS-25 Core Stage Engine Temperature Anomaly.</strong></p>
-		  </div>
+		<div class="notifications breakNotif">
+			<div class="breakIcons closeNotif">&times;</div>
+			<div class="breakIcons iconNotif"><h1>!</h1></div>
+			<div class="textContainerNotif">
+				<h3>Break Break</h3>
+				<h4><button class="breakButton">LCC-332</button> &nbsp on &nbsp <button class="breakButton">Loop 2</button></h4>
+				<p><span>Severity:</span>Contained</p>
+				<p><span>Element:</span>Main Engine</p>
+				<p><span>Subsystem:</span>Turbopump</p>
+				<p><span>Initiating Team:</span>Propulsion Engineering</p>
+			</div>
 		</div>
 
 
@@ -94,8 +112,9 @@
 
 		<!-- RIGHT: CONTENT -->
 		
-		<main>
+		<main class="hidden">
 			<div id="dataviz" class="hidden dashboard"></div>
+			<div id"lcc" class="hidden dashboard">PLEASE PLACE LCC TEXT HERE!!</div>
 		</main>
 
 		

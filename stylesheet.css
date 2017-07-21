@@ -11,8 +11,9 @@
 
 body {
     background-color: #1B2121;
-    font-family: Lato, Verdana, Arial, sans-serif;
+    font-family: Roboto, Verdana, Arial, sans-serif;
     color: white;
+    font-size: 14px;
 }
 .hidden {
     display: none;
@@ -22,6 +23,8 @@ img {
     cursor: pointer;
     clear: both;
     display: block;
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -29,24 +32,30 @@ img {
 
 /* TEXT */
 
-.instructions {
-    text-align: left;
-    font-size: 16px;
-    font-weight: 300;
-}
-.instructionsBig {
-    font-size: 30px;
-    margin-top: 4px;
+h1 {  /* big directions */
+    font-size: 32px;
+    margin-top: 10px;
+    margin-bottom: 2px;
     font-weight: 600;
 }
-.miniText{
-    text-align: left;
-    font-size: 12px;
-}
-.labels{
-    font-size: 16px;
+h2 { /* labels */
+    font-size: 18px;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
+}
+h3 { /* small directions, notification settings */
+    text-align: left;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 0px;
+    line-height: 24px;
+}
+h4 {
+    font-size: 16px;
+}
+.notes { 
+    text-align: left;
+    font-size: 14px;
 }
 
 
@@ -59,23 +68,24 @@ img {
     text-align: center;
     color: white;
     text-align: left;
-    width: 300px;
+    width: 415px;
     margin-left: auto;
     margin-right: auto;
 }
 #login input {
-    font-size: 25px;
-    font-weight: bold;
-    color: #3F4142;
+    font-size: 26px;
+    font-weight: 600;
+    color: #424242;
     background-color: #fff;
     margin-top: 20px;
     padding: 5px;
+    width: 400px;
 }
 #loginStatus {
     display: none;
-    position:absolute;
+    position: absolute;
     bottom: 10px;
-    left: 20px;
+    right: 20px;
 }
 
 
@@ -84,68 +94,105 @@ img {
 /* LEFT: TRANSCRIPTION */
 
 #transcriptionContainer {
-    background: #282D2D;
-    width: 300px;
+    background-color: #282D2D;
+    width: 400px;
     color: #FFF;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     float:left;
     overflow-y: scroll;
-    height: 600px;
 }
 #transcription {  
     width: 100%;
 }
-.transcriptionName{
-    font-size: 12px;
+.transcriptionName {
+    font-size: 13px;
+    color: #BCC2C4;
+    margin-left: 5px;
     text-transform: uppercase;
 }
-.transcriptionMessage{
-    font-size: 16px;
+.transcriptionTime {
+    font-size: 13px;
+    color: #BCC2C4;
+    margin-top: 8px;
+    margin-right: 8px;
+    float: right;
+    font-style: italic;
 }
-.transribedText {
+.noItalic{
+    font-style: normal;
+}
+.transcriptionMessage {
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.transcriptionBox {
     text-align: left;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     background-color: #383D3D;
     font-size: 20px;
     padding: 6px;
     border-radius: 3px;
     color: #fff;
-    width: 200px;
-}
-#messages {
-    /*display: none;*/
-    text-align: right;
+    width: 350px;
 }
 .microphoneImages{
-    margin-left: 125px;
+    width: 51px;
+    margin: auto;
 }
-
-.mainUserText{
-    margin-left: 80px;
-    text-align: right;
+.mainUserText {
+    float: right;
 }
-.mainUserName{
-    color: #2FA2A8;
-}
-.allUserText{
-    margin-left: 0px;
-    text-align: left;
-}
-.allUserNames{
-    color: red;
+.regularUserText {
+    float: left;
 }
 
 
 
-/*Lead Integration Engineer*/
+
+/* BUTTONS */
+
+.transcriptionMessage button{
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    box-shadow: none;
+    border-radius: 6px;
+    border-color: #F78D1E;
+    border-style: solid;
+    color: #F78D1E;
+    background-color: #383D3D;
+    font-size: 16px;
+}
+.transcriptionMessage button:hover {
+    color: #282828;
+    font-weight: 500;
+    background-color: #FF9800;
+    cursor: pointer;
+}
+
+
+
+
 /* RIGHT: CONTENT */
 
 main {
 	float: right;
-	background-color: white;
-	width: 65%;
+	background-color: #383D3D;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+
+/* LCC */
+
+#lcc{
+    width: 600px;
+    height: 500px;
 }
 
 
@@ -157,7 +204,8 @@ rect {
 	stroke: white;
 }
 #dataviz {
-	display:none;
+    width: 600px;
+    height: 500px;
 }
 
 
@@ -165,33 +213,90 @@ rect {
 
 /* NOTIFICATION */
 
-.notification {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 56%;
-    top: 0;
-    width: 100%; /* Full width */
+.notifications {
+    /*position: fixed;*/ /* Stay in place */
+    z-index: 1; 
+    padding: 15px;
+    /*top: 0;*/
+    /*right: 0;*/
+    width: 370px;
+    float: right;
+    margin-top: 25px;
+    margin-right: 25px;
+    border-left: 6px solid white;
 }
-.notificationContent {
-    background-color: #fefefe;
-    padding: 20px;
-    border: 5px solid #F78D1E;
-    border-radius: 3px;
-    width: 40%; /* Could be more or less, depending on screen size */
-    color:#000;
+.anomalyNotif {
+    background-color: #FFAA00;
+    color: #1B2121;
 }
-.close {
-    color: #aaa;
+.breakNotif {
+    background-color: #B70909;
+    color: white;
+}
+.closeNotif {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    margin-top: -10px;
+    cursor: pointer;
+}
+.iconNotif {
+    float: left;
+    margin-top: -15px;
+    margin-left: 5px;
+}
+.anomalyIcons {
+    color: #1B2121;
+}
+.breakIcons {
+    color: white;
+}
+.textContainerNotif{
+    margin-left: 30px;
+    margin-top: -15px;
 }
 .close:hover,
 .close:focus {
-    color: black;
+    color: #1B2121;
     text-decoration: none;
     cursor: pointer;
+}
+.notifications p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.notifications span {
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 12.5px;
+    font-weight: 500;
+}
+.notifications button {
+    width: 100px;
+    height: 30px;
+    box-shadow: none;
+    border-radius: 6px;
+    border-style: solid;
+    font-size: 16px;
+    font-weight: 500;
+}
+.notifications button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #1B2121; 
+    border-color: #1B2121;
+}
+.notifications .anomalyButton {
+    border-color: #1B2121;
+    color: #1B2121;
+    background-color: #FFAA00;
+}
+.notifications .breakButton {
+    border-color: white;
+    color: white;
+    background-color: #B70909;
 }
 
 
@@ -252,10 +357,8 @@ a:hover{
     background-color:transparent;
     padding: 0;
 }
-.highlight{
-    background-color: #F78D1E;
-	border-radius:3px;
-}
+
+
 
 
 /*CHAT*/
