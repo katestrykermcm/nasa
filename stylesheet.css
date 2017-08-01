@@ -57,6 +57,12 @@ h3 { /* small directions, notification settings */
 h4 {
     font-size: 16px;
 }
+h5 {
+    font-size: 18px;
+    margin-top: 10px;
+    padding-top: 15px;
+    padding-left: 21px;
+}
 .actionNotes { 
     text-align: center;
     font-size: 12px;
@@ -338,13 +344,24 @@ i{
     height: 600px;
 }
 .tiers {
-    width: 97%;
     background-color: #28323F;
     border-radius: 5px;
-    height: 300px;
-    clear: both;
-    margin-bottom: 20px;
     margin-top: 20px;
+    height: 300px;
+}
+.standardTiers {
+    width: 500px;
+    clear: both;
+}
+.sharedTiers{
+    display: inline-block;
+}
+.dashboardLCC{
+    min-width: 200px;
+    margin-right: 20px;
+}   
+.dashboardRelevantDocs{
+    width: 300px;
 }
 rect {
 	stroke: white;

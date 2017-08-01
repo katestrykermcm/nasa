@@ -104,11 +104,50 @@ $('#login input').keypress(function(e){
             $('#transcriptionContent').stop().animate({
                 scrollTop: $('#transcriptionContent')[0].scrollHeight
             }, 800);
-		});
+
+
+
+
+            // Notifications
+
+            // if the message string contains the words "LCC 332" then a notification appears
+            var patternAnomaly = /LCC.*332/;
+            //returns true or false...
+            var exists = patternAnomaly.test(message);
+            if(exists){
+                // Get the notification
+                var notification = document.getElementById('anomalyNotification');
+                notification.style.display = "block";
+                $('#anomalyNotification').animate({'top' : '0px'}, 500);
+                // When the user clicks anywhere outside of the modal, close it
+                /*window.onclick = function(event) {
+                    if (event.target == notification) {
+                        notification.style.display = "none";
+                    }
+                }*/
+            }
+
+            // if the message string contains the words "Break-Break" then a notification appears
+            var patternBreak = /Break.*Break/;
+            //returns true or false...
+            var exists = patternBreak.test(message);
+            if(exists){
+                // Get the notification
+                var notification = document.getElementById('breakNotification');
+                notification.style.display = "block";
+                $('#breakNotification').animate({'opacity' : '1'}, 500);
+            }
+
+            $(".closeNotif").click(function() {
+                $(".notifications").fadeOut("fast", function() {});
+            });
+
+
+        });
+
+
 		
-
-
-
+		
         // Close socket
 
 		Socket.addEventListener('error', function(event){
@@ -123,13 +162,18 @@ window.onresize = function() {
     // dashboard width
     // check to see if transcription minimized (hidden) or not
     var position = $("#transcriptionContainer").position();
-    // minimized -> take up full screen
+    // currently taking up full screen because transcript minimized
     if (position.left == -450){ 
         $("#dashboard").width($(window).width() - 40);
         $("#dashboard").css('margin-left', 20 + 'px');
+        $(".dashboardLCC").width($(window).width() - 390);
+        $(".standardTiers").width($(window).width() - 67);
     }
+    // currently only see portion of screen because transcript is open
     else{
         $("#dashboard").width($(window).width() - 490);
+        $(".dashboardLCC").width($(window).width() - 844);
+        $(".standardTiers").width($(window).width() - 520);
     }
     $("#dashboard").height($(window).height() - 120);
 
@@ -143,6 +187,9 @@ window.onresize = function() {
 //Responsive Width
 $("#dashboard").width($(window).width() - 490);
 $("#dashboard").height($(window).height() - 120);
+$(".dashboardLCC").width($(window).width() - 844);
+$(".standardTiers").width($(window).width() - 520);
+
 
 
 
@@ -161,8 +208,8 @@ $('.arrow').click(function() {
     //adjust dashboard width
     $("#dashboard").width($(window).width() - 40);
     $("#dashboard").animate({'margin-left' : 20 + 'px'}, 300);
-    
-
+    $(".dashboardLCC").width($(window).width() - 390);
+    $(".standardTiers").width($(window).width() - 67);
 });
 
 // Open when + circle clicked
@@ -172,6 +219,8 @@ $('#transcriptionButton').click(function() {
     $('#transcriptionHeader').animate({'left' : '0px'}, 300);
     $("#dashboard").width($(window).width() - 490);
     $("#dashboard").animate({'margin-left' : 470 + 'px'}, 300);
+    $(".dashboardLCC").width($(window).width() - 844);
+    $(".standardTiers").width($(window).width() - 520);
 });
 
 // Move between channels
@@ -279,6 +328,9 @@ if (!('webkitSpeechRecognition' in window)) {
         }
     };
 
+
+
+
     // when recording stopped
     recognition.onend = function() {
         console.log("3: on end");
@@ -293,7 +345,6 @@ if (!('webkitSpeechRecognition' in window)) {
             showDirections('info_start');
             return;
         }
-
 
         showDirections('');
 
@@ -322,40 +373,10 @@ if (!('webkitSpeechRecognition' in window)) {
         json_data = JSON.stringify({'message':message, 'sender':sender, 'channel':channel});
         console.log(json_data);
         Socket.send(json_data);
-
-        // if the message string contains the word "name" then a notification appears
-        var patternAnomaly = /LCC.*332/;
-        //returns true or false...
-        var exists = patternAnomaly.test(message);
-        if(exists){//true statement, do whatever
- 			// Get the notification
-			var notification = document.getElementById('anomalyNotification');
-			notification.style.display = "block";
-            $('#anomalyNotification').animate({'top' : '0px'}, 500);
-			// When the user clicks anywhere outside of the modal, close it
-			/*window.onclick = function(event) {
-				if (event.target == notification) {
-					notification.style.display = "none";
-				}
-			}*/
-        }
-
-        // if the message string contains the word "name" then a notification appears
-        var patternBreak = /Break.*Break/;
-        //returns true or false...
-        var exists = patternBreak.test(message);
-        if(exists){//true statement, do whatever
-            // Get the notification
-            var notification = document.getElementById('breakNotification');
-            notification.style.display = "block";
-            $('#breakNotification').animate({'opacity' : '1'}, 500);
-        }
-
-        $(".closeNotif").click(function() {
-            $(".notifications").fadeOut("fast", function() {});
-        });
-
     };
+
+
+
 
     // continually updating as audio is recorded - most important
     recognition.onresult = function(event) {
