@@ -21,67 +21,107 @@
 	</head>
 	<body>
 
+
+
+
 		<!-- INITIAL SCREEN: USER ENTERS NAME TO LOGIN -->
 
 		<div id="login">
-			<div class="instructions"><h3>To communicate<br>with your team over OIS,</h3></div>
-			<div class="instructions"><h1>enter your name:</h1></div>
+			<div><h3>To communicate<br>with your team over OIS,</h3></div>
+			<div><h1>enter your name:</h1></div>
 			<input/>
 		</div>
+
+		<div id="bodyHeader" class="headers appContents hidden">
 
 
 
 
 		<!-- LEFT: TRANSCRIPTION -->
 
-		<div id="transcriptionContainer" class="hidden dashboard">	
+		<div id="transcriptionButton"><p>+</p></div>
+
+		<div id="transcriptionContainer" class="appContents hidden">	
+
+			<!-- Transcription header -->
+			<div id="transcriptionHeader" class="headers">
+				<!-- close transcription left pointing arrow -->
+				<div class="arrow"><i></i></div>
+				<!-- preset channels to pick from -->
+				<div id="channelCommandNet" class="channelTitles selectedChannel"><h2>COMMAND NET</h2></div>
+				<div id="channelLoop1" class="channelTitles"><h2>LOOP 1</h2></div>
+				<div id="channelLoop2" class="channelTitles"><h2>LOOP 2</h2></div>
+			</div>
 
 			<!-- Transcription content -->
-			<div id="transcription">
-				<h2>COMMAND NET</h2>
-				<div id="conversation"></div>
-			</div>
-		
-			<!-- Microphone instructions -->
-			<div id="info">
-				<p id="info_start">
-					<span class="instructions">To communicate, <br>click on the microphone icon<br>and begin speaking.</span>
-				</p>
-				<p id="info_speak_now" class="instructions">Speak now.</p>
-				<p id="info_no_speech">
-					No speech was detected. You may need to adjust your <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892"> microphone settings</a>.
-				</p>
-				<p id="info_no_microphone" style="display:none">
-					No microphone was found. Ensure that a microphone is installed and that <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892"> microphone settings</a> are configured correctly.
-				</p>
-				<p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
-				<p id="info_denied">Permission to use microphone was denied.</p>
-				<p id="info_blocked">Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream</p>
-				<p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a>version 25 or later.</p>
-			</div>
-			
-			<!-- Microphone images -->
-			<div class="microphoneImages">
-				<button id="start_button" onclick="startButton(event)">
-					<img id="start_img" src="mic.gif" alt="Start">
-				</button>
+			<div id="transcriptionContent" class="scrollbar style3">
+				<div id="transcriptionCommandNet" class="transcription">
+					<div id="conversationCommandNet" class="conversationCommandNet conversation"></div>
+					<div class="conversationEnd actionNotes">End of Command Net feed. Listening...</div>
+				</div>
+				<div id="transcriptionLoop1" class="transcription hidden">
+					<div id="conversationLoop1" class="conversationLoop1 conversation"></div>
+					<div class="conversationEnd actionNotes">End of Loop 1 feed. Listening...</div>
+				</div>
+				<div id="transcriptionLoop2" class="transcription hidden">
+					<div id="conversationLoop2" class="conversationLoop2 conversation"></div>
+					<div class="conversationEnd actionNotes">End of Loop 2 feed. Listening...</div>
+				</div>
 			</div>
 
-			<!-- This isn't shown... may confuse the user to have a constantly updating transcription appear while they're talking -->
-			<div id="results">
-				<span id="final_span" class="final"></span>
-				<span id="interim_span" class="interim"></span>
+			<!-- Transcription footer -->
+			<div id="transcriptionFooter">
+
+				<!-- Microphone images -->
+				<div class="microphoneImages">
+					<button id="start_button" onclick="startButton(event)">
+						<img id="start_img" src="mic.gif" alt="Start">
+					</button>
+				</div>
+
+				<!-- <div class="notes" id="loginStatus"></div> -->
+
+				<!-- Microphone instructions -->
+				<div id="info" class="instructions">
+					<p id="info_start">
+						<span class="instructions">To communicate, click on the<br>microphone icon and begin speaking.</span>
+					</p>
+					<p id="info_speak_now" class="instructions">Speak now.</p>
+					<p id="info_no_speech">
+						No speech was detected. You may need to adjust your <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892"> microphone settings</a>.
+					</p>
+					<p id="info_no_microphone" style="display:none">
+						No microphone was found. Ensure that a microphone is installed and that <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892"> microphone settings</a> are configured correctly.
+					</p>
+					<p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+					<p id="info_denied">Permission to use microphone was denied.</p>
+					<p id="info_blocked">Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream</p>
+					<p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a>version 25 or later.</p>
+				</div>
+
+
+				<div id="bottomDetails">
+					<div class="notes" id="currentTime"></div>
+					<div class="notes" id="loginStatus"></div>
+					<div class="notes">Live OIS transcription in progress.</div>
+				</div>
+
+
+				<!-- This isn't shown... may confuse the user to have a constantly updating transcription appear while they're talking -->
+				<div id="results">
+					<span id="final_span" class="final"></span>
+					<span id="interim_span" class="interim"></span>
+				</div>
 			</div>
+
 		</div>
-
-		<p class="notes" id="loginStatus"></p>
 
 
 
 
 		<!-- NOTIFICATION -->
 
-		<div class="notifications anomalyNotif">
+		<div id="anomalyNotification" class="notifications anomalyNotifs">
 			<div class="anomalyIcons closeNotif">&times;</div>
 			<div class="anomalyIcons iconNotif"><h1>!</h1></div>
 			<div class="textContainerNotif">
@@ -94,7 +134,7 @@
 			</div>
 		</div>
 
-		<div class="notifications breakNotif">
+		<div id="breakNotification" class="notifications breakNotifs">
 			<div class="breakIcons closeNotif">&times;</div>
 			<div class="breakIcons iconNotif"><h1>!</h1></div>
 			<div class="textContainerNotif">
@@ -112,10 +152,21 @@
 
 		<!-- RIGHT: CONTENT -->
 		
-		<main class="hidden">
-			<div id="dataviz" class="hidden dashboard"></div>
-			<div id"lcc" class="hidden dashboard">PLEASE PLACE LCC TEXT HERE!!</div>
-		</main>
+		<div id="dashboard" class="appContents hidden scrollbar style3">
+
+			<div id="tier1" class="tiers">
+				<div id="dashboardLCC"></div>
+				<div id="dashboardRelevantDocs">fjkdsljflkdsjfs</div>
+			</div>
+			<div id="tier2" class="tiers">
+				<div id="dashboardRefDes">fjkdsljflkdsjfs</div>
+			</div>
+			<div id="tier3" class="tiers">
+				<div id="dashboardCUI">fjkdsljflkdsjfs</div>
+			</div>
+
+			<div id="dataviz" class="hidden"></div>
+		</div>
 
 		
 

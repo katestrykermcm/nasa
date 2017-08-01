@@ -26,6 +26,10 @@ img {
     width: 50px;
     height: 50px;
 }
+button {
+    outline: none;
+    cursor: pointer;
+}
 
 
 
@@ -41,7 +45,7 @@ h1 {  /* big directions */
 h2 { /* labels */
     font-size: 18px;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 400;
 }
 h3 { /* small directions, notification settings */
     text-align: left;
@@ -53,9 +57,22 @@ h3 { /* small directions, notification settings */
 h4 {
     font-size: 16px;
 }
-.notes { 
-    text-align: left;
-    font-size: 14px;
+.actionNotes { 
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 300;
+    color: #8E9193;
+}
+.notes {
+    text-align: center;
+    font-size: 12px;
+    color: #8E9193;
+}
+.instructions{
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }
 
 
@@ -81,11 +98,45 @@ h4 {
     padding: 5px;
     width: 400px;
 }
-#loginStatus {
-    display: none;
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
+
+
+
+
+/* HEADERS */
+
+.headers{
+    background-color: #45535B;
+    height: 100px;
+    width: 100%;
+    box-shadow: 2px 2px 5px black;
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+}
+
+
+
+
+/* TRANSCRIPTION SCROLL BAR*/
+
+.scrollbar {
+    float: left;
+    height: 300px;
+    width: 65px;
+    overflow-y: scroll;
+}
+.style3::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #37474F;
+}
+.style3::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 100px;
+    background-color: red;
+}
+.style3::-webkit-scrollbar-thumb {
+    background-color: #20CE9C;
 }
 
 
@@ -94,16 +145,100 @@ h4 {
 /* LEFT: TRANSCRIPTION */
 
 #transcriptionContainer {
-    background-color: #282D2D;
-    width: 400px;
+    /*background-color: #282D2D;*/
+    box-shadow: 3px 3px 16px black;
+    width: 450px;
     color: #FFF;
-    border-radius: 5px;
-    padding: 10px;
-    float:left;
-    overflow-y: scroll;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
 }
-#transcription {  
+
+/* TRANSCRIPTION HEADER */
+#transcriptionHeader{
+    width: 450px;
+    position: fixed;
+}
+.channelTitles{
+    display: inline-block;
+    height: 45px;
+    margin-top: 49px;
+    margin-right: 10px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.selectedChannel{
+    color: #1DE9B6;
+    border-bottom: thick solid #1DE9B6;
+}
+.arrow{
+    font-weight:normal;
+    cursor: pointer;
+    outline: none;
+    float: right;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+i{
+    width: 3px;
+    height: 3px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+/* TRANSCRIPTION BUTTON WHEN MINIMIZED*/
+#transcriptionButton{
+    display: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    background-color: #20CE9C;
+    position: fixed;
+    top: 60px;
+    left: 20px;
+    z-index: 1000000;
+    cursor: pointer;
+}
+#transcriptionButton p{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 6px;
+    height: 55px;
+}
+
+/* TRANSCRIPTION FOOTER */
+#transcriptionFooter{
+    width: 450px;
+    border-top: 1px solid #20CE9C;
+    height: 170px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 0px;
+    left: 0px;
+}
+#bottomDetails {
+    position: absolute;
     width: 100%;
+    bottom: 10px;
+}
+.microphoneImages{
+    width: 51px;
+    margin: auto;
+}
+
+/* TRANSCRIPTION CONTENT */
+#transcriptionContent {
+    margin-top: 100px;
+    padding: 10px;
+    width: 410px;
+    overflow-y: scroll;
 }
 .transcriptionName {
     font-size: 13px;
@@ -133,16 +268,16 @@ h4 {
     text-align: left;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #383D3D;
+    /*background-color: #383D3D;*/
+    background-color: #282D2D;
     font-size: 20px;
     padding: 6px;
     border-radius: 3px;
     color: #fff;
-    width: 350px;
+    width: 360px;
 }
-.microphoneImages{
-    width: 51px;
-    margin: auto;
+.conversationEnd{
+    clear: both;
 }
 .mainUserText {
     float: right;
@@ -157,49 +292,60 @@ h4 {
 /* BUTTONS */
 
 .transcriptionMessage button{
-    width: 100px;
     height: 30px;
     margin: 5px;
     box-shadow: none;
     border-radius: 6px;
-    border-color: #F78D1E;
     border-style: solid;
-    color: #F78D1E;
-    background-color: #383D3D;
+    background-color: #282D2D;
     font-size: 16px;
 }
-.transcriptionMessage button:hover {
-    color: #282828;
+/*.transcriptionMessage button:hover {
     font-weight: 500;
-    background-color: #FF9800;
-    cursor: pointer;
+}*/
+.transcriptionMessage .transcriptButtonAnomaly{
+    width: 100px;
+    border-color: #FFAA00;
+    color: #FFAA00;
+}
+.transcriptionMessage .transcriptButtonAnomaly:hover {
+    color: #282828;
+    background-color: #FFAA00;
+}
+.transcriptionMessage .transcriptButtonBreak{
+    width: 120px;
+    border-color: #FF1515;
+    color: #FF1515;
+}
+.transcriptionMessage .transcriptButtonBreak:hover {
+    /*color: #282828;*/
+    color: white;
+    background-color: #B70909; /* red */
+    /*background-color: #C90C0C;*/
+    border-color: #B70909;
 }
 
 
 
 
-/* RIGHT: CONTENT */
-
-main {
-	float: right;
-	background-color: #383D3D;
-    padding: 6px;
-    border-radius: 3px;
+/* RIGHT: DASHBOARD & DATA VIZ */
+#dashboard {
+	margin-top: 100px;
+    margin-left: 470px;
+    z-index: 1;
+    /*background-color: pink;*/
+    overflow-y: scroll;
+    height: 600px;
 }
-
-
-/* LCC */
-
-#lcc{
-    width: 600px;
-    height: 500px;
+.tiers {
+    width: 97%;
+    background-color: #28323F;
+    border-radius: 5px;
+    height: 300px;
+    clear: both;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
-
-
-
-
-/* DATA VIZ */
-
 rect {
 	stroke: white;
 }
@@ -214,24 +360,26 @@ rect {
 /* NOTIFICATION */
 
 .notifications {
-    /*position: fixed;*/ /* Stay in place */
+    position: fixed; /* Stay in place */
+    display: none;
     z-index: 1; 
     padding: 15px;
-    /*top: 0;*/
-    /*right: 0;*/
+    right: 0;
     width: 370px;
     float: right;
     margin-top: 25px;
     margin-right: 25px;
     border-left: 6px solid white;
 }
-.anomalyNotif {
-    background-color: #FFAA00;
-    color: #1B2121;
+.breakNotifs {
+    background-color: #B70909; /* red */
+    opacity: 0;
+    color: white; 
 }
-.breakNotif {
-    background-color: #B70909;
-    color: white;
+.anomalyNotifs {
+    background-color: #FFAA00; /* orange */
+    top: -300px;
+    color: #1B2121; 
 }
 .closeNotif {
     float: right;
@@ -251,7 +399,7 @@ rect {
 .breakIcons {
     color: white;
 }
-.textContainerNotif{
+.textContainerNotif {
     margin-left: 30px;
     margin-top: -15px;
 }
@@ -270,8 +418,8 @@ rect {
 .notifications span {
     margin-right: 5px;
     text-transform: uppercase;
-    font-size: 12.5px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 00;
 }
 .notifications button {
     width: 100px;
@@ -283,7 +431,6 @@ rect {
     font-weight: 500;
 }
 .notifications button:hover {
-    cursor: pointer;
     color: white;
     background-color: #1B2121; 
     border-color: #1B2121;
@@ -297,16 +444,6 @@ rect {
     border-color: white;
     color: white;
     background-color: #B70909;
-}
-
-
-
-
-
-#final_span {
-	width: 200px;
-	height: 200px;
-    background-color: red;
 }
 
 
@@ -336,12 +473,6 @@ a:hover{
     text-align: center;
     color: purple;
     display: none;
-}
-#info{
-    font-size: 20px;
-    text-align: center;
-    color: white;
-    visibility: hidden;
 }
 #results{
     font-size: 14px;

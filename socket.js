@@ -5,7 +5,9 @@
 */
 
 
-// socket stuff
+
+
+// Socket stuff
 
 if(!WebSocket){
 	$('#login').add('p').addClass('page_text').text('Your browser does not support WebSocket, you cannot chat!');
@@ -13,8 +15,12 @@ if(!WebSocket){
 var Socket;
 var username;
 
-$('#login input').focus();
 
+
+
+// Login page
+
+$('#login input').focus();
 $('#login input').keypress(function(e){
 	var code = (e.keyCode ? e.keyCode : e.which);
 	if(code == 13){
@@ -23,71 +29,88 @@ $('#login input').keypress(function(e){
 		username = val;
 		$('#login').remove();
         // Hide this login information and reveal dashboard
+        $(".appContents").removeClass('hidden');
         $(".dashboard").removeClass('hidden');
 
-		// Configure the chat URL
-		chat_url = window.location.href;
-		chat_url = chat_url.substr(4);
-		chat_url = 'ws' + chat_url;
 
-		// Open chat socket
-		Socket = new WebSocket(chat_url, 'chat-protocol'); 
+
+
+        // Configure the chat URL
+        chat_url = window.location.href;
+        chat_url = chat_url.substr(4);
+        chat_url = 'ws' + chat_url;
+
+        // Open chat socket
+        Socket = new WebSocket(chat_url, 'chat-protocol'); 
+
+		// // Configure the chat URL
+		// chat_url = window.location.href;
+		// chat_url = chat_url.substr(4);
+		// chat_url = 'ws' + chat_url;
+
+		// // Open chat socket
+        // console.log(chat_url);
+		// // Socket = new WebSocket(chat_url, 'chat-protocol'); 
+        // Socket = new WebSocket("wss://www.katestrykermcmanus.com", 'chat-protocol'); 
 		
+
+
+
 		// Static text: appears at start of chat and stays on the screen
+
 		Socket.addEventListener('open', function(event){
-			$('#conversation').show();
-			$('#loginStatus').text("You are logged in as " + username).show();
+			$('.conversation').show();
+            $('#loginStatus').text("Welcome, " + username + "!").show();
+            setInterval(updateTime, 1000);
 		});
+
+
+
 
 		// Dynamic chat text
+
 		Socket.addEventListener('message', function(event){
-				var object = eval('('+event.data+')');
-				var sender = object['sender'];
-				var message = object['message'];
+			var object = eval('('+event.data+')');
+			var sender = object['sender'];
+			var message = object['message'];
+            var channel = object['channel'];
+            console.log(object);
 
-                // make time
-                var now = new Date();
-                var hours = now.getHours();
-                if (hours.toString().length == 1) {
-                    hours = "0" + hours;
-                }
-                var minutes = now.getMinutes();
-                if (minutes.toString().length == 1) {
-                    minutes = "0" + minutes;
-                }
-                var time = hours.toString() + minutes.toString();
+            var times = getTimes();
 
-                // make fake L-time
-                var lMinutes = 60 - minutes;
-                if (lMinutes.toString().length == 1) {
-                    lMinutes = "0" + lMinutes;
-                }
-                var lSeconds = 60 - now.getSeconds();
-                if (lSeconds.toString().length == 1) {
-                    lSeconds = "0" + lSeconds;
-                }
-                var lTime = "04:" + lMinutes + ":" + lSeconds;
+            // it is the main user, LPE (Simon)
+            if (sender.toUpperCase() === 'LEAD INTEGRATION ENGINEER'){
+                var appendable = '<div class="mainUserText transcriptionBox">' + 
+                    '<span class="mainUserName transcriptionName">' + sender + '</span>' + 
+                    '<span class="transcriptionTime">' + times[0] + ' <span class="noItalic">&nbsp | &nbsp </span> L - ' + times[1] + '</span><br>' + 
+                    '<div class="transcriptionMessage">' + message + '</div>' + 
+                '</div>';
+            }
+            // it is another user
+            else{
+                var appendable = '<div class="regularUserText transcriptionBox">' + 
+                    '<span class="regularUserNames transcriptionName">' + sender + '</span>' + 
+                    '<span class="transcriptionTime">' + times[0] + ' <span class="noItalic">&nbsp | &nbsp </span> L - ' + times[1] + '</span><br>' + 
+                    '<div class="transcriptionMessage">' + message + '</div>' + 
+                '</div>';
+            }
 
-                // it is the main user, LPE (Simon)
-                if (sender === 'Lead Integration Engineer'){
-                    var appendable = '<div class="mainUserText transcriptionBox">' + 
-                        '<span class="mainUserName transcriptionName">' + sender + '</span>' + 
-                        '<span class="transcriptionTime">' + time + ' <span class="noItalic">&nbsp&nbsp | &nbsp&nbsp </span> L - ' + lTime + '</span><br>' + 
-                        '<div class="transcriptionMessage">' + message + '</div>' + 
-                    '</div>';
-                }
-                // it is another user
-                else{
-                    var appendable = '<div class="regularUserText transcriptionBox">' + 
-                        '<span class="regularUserNames transcriptionName">' + sender + '</span>' + 
-                        '<span class="transcriptionTime">' + time + ' <span class="noItalic">&nbsp&nbsp | &nbsp&nbsp </span> L - ' + lTime + '</span><br>' + 
-                        '<div class="transcriptionMessage">' + message + '</div>' + 
-                    '</div>';
-                }
-				$('#conversation').append(appendable);
-				window.scrollBy(0,200);
+            // Add transcripted text to currently selected channel!
+            console.log(channel);
+            console.log(sender);
+            $('.conversation' + channel).append(appendable);
+
+            // scroll to bottom after adding new transcription text
+            $('#transcriptionContent').stop().animate({
+                scrollTop: $('#transcriptionContent')[0].scrollHeight
+            }, 800);
 		});
 		
+
+
+
+        // Close socket
+
 		Socket.addEventListener('error', function(event){
 			return;
 		});
@@ -96,8 +119,89 @@ $('#login input').keypress(function(e){
 
 
 
+window.onresize = function() {
+    // dashboard width
+    // check to see if transcription minimized (hidden) or not
+    var position = $("#transcriptionContainer").position();
+    // minimized -> take up full screen
+    if (position.left == -450){ 
+        $("#dashboard").width($(window).width() - 40);
+        $("#dashboard").css('margin-left', 20 + 'px');
+    }
+    else{
+        $("#dashboard").width($(window).width() - 490);
+    }
+    $("#dashboard").height($(window).height() - 120);
 
-// transcription stuff
+    // transcript height
+    $("#transcriptionContent").height($(window).height() - 292);
+}
+
+
+// Dashboard
+
+//Responsive Width
+$("#dashboard").width($(window).width() - 490);
+$("#dashboard").height($(window).height() - 120);
+
+
+
+
+
+// Transcription 
+
+// Responsive height
+$("#transcriptionContent").height($(window).height() - 292);
+
+// Minimize when header arrow clicked
+$('.arrow').click(function() {
+    $('#transcriptionContainer').animate({'left' : '-450px'}, 300);
+    $('#transcriptionHeader').animate({'left' : '-450px'}, 300);
+    $('#transcriptionButton').fadeIn('slow');
+    //adjust dashboard width
+    $("#dashboard").width($(window).width() - 40);
+    $("#dashboard").animate({'margin-left' : 20 + 'px'}, 300);
+    
+
+});
+
+// Open when + circle clicked
+$('#transcriptionButton').click(function() {
+    $('#transcriptionButton').fadeOut('fast');
+    $('#transcriptionContainer').animate({'left' : '0px'}, 300);
+    $('#transcriptionHeader').animate({'left' : '0px'}, 300);
+    $("#dashboard").width($(window).width() - 490);
+    $("#dashboard").animate({'margin-left' : 470 + 'px'}, 300);
+});
+
+// Move between channels
+$('.channelTitles').click(function() {
+    $('.channelTitles').removeClass('selectedChannel');
+    $(this).addClass('selectedChannel');
+    var channelId = $(this).attr('id');
+    $('.transcription').addClass('hidden'); 
+
+
+    $('#transcriptionContent').scrollTop($('#transcriptionContent')[0].scrollHeight);
+    // $('#transcriptionContent').stop().animate({
+    //     scrollTop: $('#transcriptionContent')[0].scrollHeight
+    // }, 300);
+
+
+    if (channelId == 'channelCommandNet'){
+        $('#transcriptionCommandNet').removeClass('hidden');
+    }
+    if (channelId == 'channelLoop1'){
+        $('#transcriptionLoop1').removeClass('hidden');
+    }
+    if (channelId == 'channelLoop2'){
+        $('#transcriptionLoop2').removeClass('hidden');
+    }
+});
+
+
+
+
 
 showDirections('info_start');
 
@@ -109,6 +213,35 @@ var start_timestamp;
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
+
+
+
+    // var audioElement = document.createElement('audio');
+    // audioElement.setAttribute('src', 'sound/solemn.mp3');
+    
+    // audioElement.addEventListener('ended', function() {
+    //     this.play();
+    // }, false);
+    
+    
+    // $('#play').click(function() {
+    //     audioElement.load();
+    //     audioElement.play();
+    //     return false;
+    //     // $("#status").text("Status: Playing");
+    // });
+    
+    // $('#pause').click(function() {
+    //     audioElement.pause();
+    //     $("#status").text("Status: Paused");
+    // });
+    
+    // $('#restart').click(function() {
+    //     audioElement.currentTime = 0;
+    // });
+
+
+
     start_button.style.display = 'inline-block';
     var recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
@@ -177,27 +310,28 @@ if (!('webkitSpeechRecognition' in window)) {
         // Sends transcription to post in chat
         message = final_transcript;
         sender = username;
-        json_data = JSON.stringify({'message':message, 'sender':sender});
+        if ($('#channelCommandNet').hasClass('selectedChannel')){
+            channel = "CommandNet";
+        }
+        else if ($('#channelLoop1').hasClass('selectedChannel')){
+            channel = "Loop1";
+        }
+        else {
+            channel = "Loop2";
+        }
+        json_data = JSON.stringify({'message':message, 'sender':sender, 'channel':channel});
         console.log(json_data);
         Socket.send(json_data);
 
         // if the message string contains the word "name" then a notification appears
-        var pattern = /LCC.*332/;
-		
+        var patternAnomaly = /LCC.*332/;
         //returns true or false...
-        var exists = pattern.test(message);
+        var exists = patternAnomaly.test(message);
         if(exists){//true statement, do whatever
  			// Get the notification
-			var notification = document.getElementById('notification');
+			var notification = document.getElementById('anomalyNotification');
 			notification.style.display = "block";
-			// Get the <span> element that closes the notification
-			var span = document.getElementsByClassName("closeNotif")[0];
-
-			// When the user clicks on <span> (x), close the notification
-			span.onclick = function() {
-				notification.style.display = "none";
-			}
-
+            $('#anomalyNotification').animate({'top' : '0px'}, 500);
 			// When the user clicks anywhere outside of the modal, close it
 			/*window.onclick = function(event) {
 				if (event.target == notification) {
@@ -206,10 +340,20 @@ if (!('webkitSpeechRecognition' in window)) {
 			}*/
         }
 
-        // scroll to bottom after adding new transcription text
-        $('#transcriptionContainer').stop().animate({
-            scrollTop: $('#transcriptionContainer')[0].scrollHeight
-        }, 800);
+        // if the message string contains the word "name" then a notification appears
+        var patternBreak = /Break.*Break/;
+        //returns true or false...
+        var exists = patternBreak.test(message);
+        if(exists){//true statement, do whatever
+            // Get the notification
+            var notification = document.getElementById('breakNotification');
+            notification.style.display = "block";
+            $('#breakNotification').animate({'opacity' : '1'}, 500);
+        }
+
+        $(".closeNotif").click(function() {
+            $(".notifications").fadeOut("fast", function() {});
+        });
 
     };
 
@@ -225,27 +369,32 @@ if (!('webkitSpeechRecognition' in window)) {
             else {
                 interim_transcript += event.results[i][0].transcript;
             }
-			//code for changing keywords into buttons  LC c3322 
+
+			// CHANGE KEYWORDS TO BUTTONS
+            // LCC 332
             if (final_transcript.indexOf("LCC 332") !== -1){
-                final_transcript = final_transcript.replace(/LCC.*332/, '<button class="highlight">LCC-332</button>');
+                final_transcript = final_transcript.replace(/LCC.*332/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
             }
             else if (final_transcript.indexOf("LC c3322") !== -1){
-                final_transcript = final_transcript.replace(/LC.*c3322/, '<button class="highlight">LCC-332</button>');
+                final_transcript = final_transcript.replace(/LC.*c3322/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
             }
             else if (final_transcript.indexOf("LC c332") !== -1){
-                final_transcript = final_transcript.replace(/LC.*c332/, '<button class="highlight">LCC-332</button>');
+                final_transcript = final_transcript.replace(/LC.*c332/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
             }
             else if (final_transcript.indexOf("LC c33") !== -1){
-                final_transcript = final_transcript.replace(/LC.*c33/, '<button class="highlight">LCC-332</button>');
+                final_transcript = final_transcript.replace(/LC.*c33/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
+            }
+            else if (final_transcript.indexOf("OCC 332") !== -1){
+                final_transcript = final_transcript.replace(/OCC.*332/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
+            }
+            else if (final_transcript.indexOf("CC 332") !== -1){
+                final_transcript = final_transcript.replace(/CC.*332/, '<button class="highlight transcriptButtonAnomaly">LCC-332</button>');
             }
 
-            else if (final_transcript.indexOf("LCC 186") !== -1){
-                final_transcript = final_transcript.replace(/LCC.*186/, '<button class="highlight">LCC 186</button>');
+            // BREAK BREAK
+            if (final_transcript.indexOf("break break") !== -1){
+                final_transcript = final_transcript.replace(/break.*break/, '<button class="highlight transcriptButtonBreak">Break-Break</button>');
             }
-            else if (final_transcript.indexOf("LCC 401") !== -1){
-                final_transcript = final_transcript.replace(/LCC.*401/, '<button class="highlight">LCC 401</button>');
-        	}
-
 		}
 		final_transcript = capitalize(final_transcript);
         final_span.innerHTML = linebreak(final_transcript);
@@ -286,7 +435,7 @@ function startButton(event) {
     start_timestamp = event.timeStamp;
 }
 
-$('#conversation').on( 'click', '.highlight', function () {
+$('.conversation').on( 'click', '.highlight', function () {
     $("main").removeClass("hidden");
 });
 
@@ -305,3 +454,38 @@ function showDirections(s) {
         info.style.visibility = 'hidden';
     }
 }
+
+function getTimes() {
+
+    var now = new Date();
+    var hours = now.getHours();
+    if (hours.toString().length == 1) {
+        hours = "0" + hours;
+    }
+    var minutes = now.getMinutes();
+    if (minutes.toString().length == 1) {
+        minutes = "0" + minutes;
+    }
+    var time = hours.toString() + minutes.toString();
+
+    // make fake L-time
+    var lMinutes = 60 - minutes;
+    if (lMinutes.toString().length == 1) {
+        lMinutes = "0" + lMinutes;
+    }
+    var lSeconds = 60 - now.getSeconds();
+    if (lSeconds.toString().length == 1) {
+        lSeconds = "0" + lSeconds;
+    }
+    var lTime = "04:" + lMinutes + ":" + lSeconds;
+
+    return [time, lTime];
+}
+
+function updateTime() {
+    var times = getTimes();
+    $('#currentTime').text(times[0] + ' | L - ' + times[1]).show();
+}
+
+
+

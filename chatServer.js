@@ -109,6 +109,13 @@ var server = http.createServer(function(request, response) {
             response.end();
         });
     }
+
+    else if (URL === BASE_URI + '/sound/solemn.mp3'){
+        var img = fs.readFileSync('sound/solemn.mp3');
+        response.writeHead(200, {'Content-Type': 'mp3' });
+        response.end(img, 'binary');
+    }
+
     else if (URL === BASE_URI + '/stylesheet.css'){
         // Stylesheet
         fs.readFile('stylesheet.css', 'utf8', function(err, data){
@@ -147,8 +154,9 @@ wsServer.on('request', function(request) {
     var connection = request.accept('chat-protocol', request.origin);
     var sender = 'Server';
     var message = 'Someone joined the chat';
+    var channel = "CommandNet";
 
-    json_data = JSON.stringify({'message': message, 'sender': sender});
+    json_data = JSON.stringify({'message': message, 'sender': sender, 'channel':channel});
 
     for (var i = 0; i < clients.length; i++){
         clients[i].sendUTF(json_data);
@@ -167,14 +175,15 @@ wsServer.on('request', function(request) {
             if (sender == 'Server'){
                 sender = 'ServerWannabe';
             }
+            var channel = data['channel'];
             users[client_index] = sender;
-            json_data = JSON.stringify({'message': message, 'sender': sender});
+            json_data = JSON.stringify({'message': message, 'sender': sender, 'channel':channel});
             var test_str = message.replace(/^\s+|\s+$/g,'');
             if(test_str != ''){
                 for (var i = 0; i < clients.length; i++){
                     clients[i].sendUTF(json_data);
                 }
-                console.log('- ' + sender + ':  ' + message); // Broadcasted
+                console.log('- ' + sender + ':  ' + message + ':  ' + channel); // Broadcasted
             }
         }
         // Never happened in my testing?
@@ -189,10 +198,11 @@ wsServer.on('request', function(request) {
         clients.splice(client_index, 1);
         leaving_user = users.splice(client_index, 1)[0]
 
-        
+
         var message = leaving_user + ' has ended OIS communication.';
         var sender = 'Server';
-        json_data = JSON.stringify({'message': message, 'sender': sender});
+        var channel = 'CommandNet';
+        json_data = JSON.stringify({'message': message, 'sender': sender, 'channel': channel});
         for (var i = 0; i < clients.length; i++){
             clients[i].sendUTF(json_data);
         }
